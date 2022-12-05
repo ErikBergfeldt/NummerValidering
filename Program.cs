@@ -22,8 +22,8 @@ namespace ValidatePersonnummer
             int value = 0;
             for (int i = 0; i < personnummer.Length; i++)
             {
-                int t = (personnummer[i] - 48)          //Subtraherar personnummret med 48
-                    << (1 - (i & 1));                  // Multiplicera med två varannan gång
+                int t = (personnummer[i] - 48)          //Subtraherar alla bokstäver i personnummret med 48 för att konvertera alla chars till dess numeriska värde.
+                    << (1 - (i & 1));                  // Multiplicera med två varannan gång genom att gå ett steg åt vänster för jämna i
                 if (t > 9) t = t - 9;                  // Om talet är större än 9 ska man subtrahera 9 (Siffersumman = talet - 9).
                 value += t;
             }
@@ -78,11 +78,11 @@ namespace ValidatePersonnummer
 
             if ((a % 2) == 1) //Om näst sista siffran inte är jämnt delbart med 2 är det en Man.
             {
-                return "Man";
+                return "Personen är en Man";
             }
             else // Om det är jämnt delbart med 2 är det en Kvinna.
             {
-                return "Kvinna";
+                return "Personen är en Kvinna";
             }
         }
 
@@ -188,6 +188,7 @@ namespace ValidatePersonnummer
                     Console.WriteLine("Skriv ett personnummer: ");
                     string personnummer = Console.ReadLine();
                     kontrollera_personnummer(personnummer);
+                    Console.WriteLine(kontrollera_kön(personnummer));
                     return true;
                 case "2":
                     Console.WriteLine("Skriv ett sammordningsnummer: ");
@@ -203,6 +204,7 @@ namespace ValidatePersonnummer
                 case "4":
                     return false;
                 default:
+                    Console.WriteLine("Ange ett korrekt alternativ");
                     return true;
             }
         }
